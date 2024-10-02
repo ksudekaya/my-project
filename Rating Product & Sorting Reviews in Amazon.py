@@ -37,9 +37,9 @@ git add
 
 
 
-###################################################
-# GÖREV 1: Average Rating'i Güncel Yorumlara Göre Hesaplayınız ve Var Olan Average Rating ile Kıyaslayınız.
-###################################################
+
+#  Average Rating'i Güncel Yorumlara Göre Hesaplayınız ve Var Olan Average Rating ile Kıyaslama
+
 import pandas as pd
 import math
 import scipy.stats as st
@@ -54,20 +54,13 @@ pd.set_option('display.float_format', lambda x: '%.5f' % x)
 df = pd.read_csv("amazon_review.csv")
 df.head()
 df.shape
-# Paylaşılan veri setinde kullanıcılar bir ürüne puanlar vermiş ve yorumlar yapmıştır.
-# Bu görevde amacımız verilen puanları tarihe göre ağırlıklandırarak değerlendirmek.
-# İlk ortalama puan ile elde edilecek tarihe göre ağırlıklı puanın karşılaştırılması gerekmektedir.
 
 
-###################################################
-# Adım 1: Veri Setini Okutunuz ve Ürünün Ortalama Puanını Hesaplayınız.
-###################################################
+
 df["overall"].value_counts()
 
 df["overall"].mean()
-###################################################
-# Adım 2: Tarihe Göre Ağırlıklı Puan Ortalamasını Hesaplayınız.
-###################################################
+
 df.head()
 df.info()
 df["reviewTime"] = pd.to_datetime(df["reviewTime"])
@@ -96,12 +89,8 @@ def time_based_weighted_average(dataframe, w1=28, w2=26, w3=24, w4=22):
 
 time_based_weighted_average(df)
 
-#burdaki diğer çözümü çözüm dosyasından al
 
 
-###################################################
-# Görev 2: Ürün için Ürün Detay Sayfasında Görüntülenecek 20 Review'i Belirleyiniz.
-###################################################
 df.head()
 
 ###################################################

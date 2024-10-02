@@ -54,10 +54,8 @@
 
 
 
+# Veriyi Hazırlama ve Analiz Etme
 
-#####################################################
-# Görev 1:  Veriyi Hazırlama ve Analiz Etme
-#####################################################
 import itertools
 import numpy as np
 import pandas as pd
@@ -74,12 +72,12 @@ pd.set_option('display.max_rows', 10)
 pd.set_option('display.float_format', lambda x: '%.5f' % x)
 
 
-# Adım 1:  ab_testing_data.xlsx adlı kontrol ve test grubu verilerinden oluşan veri setini okutunuz. Kontrol ve test grubu verilerini ayrı değişkenlere atayınız.
+
 dataframe_control = pd.read_excel(r"ab_testing.xlsx" , sheet_name="Control Group")
 dataframe_test = pd.read_excel(r"ab_testing.xlsx" , sheet_name="Test Group")
 df_control = dataframe_control.copy()
 df_test = dataframe_test.copy()
-# Adım 2: Kontrol ve test grubu verilerini analiz ediniz.
+
 def check_df(dataframe, head=5):
     print("##################### Shape #####################")
     print(dataframe.shape)
@@ -98,9 +96,6 @@ check_df(df_control)
 check_df(df_test)
 
 
-
-# Adım 3: Analiz işleminden sonra concat metodunu kullanarak kontrol ve test grubu verilerini birleştiriniz.
-
 df_control["group"]="control"
 df_test["group"]="test"
 df_control.head()
@@ -110,33 +105,16 @@ df=pd.concat([df_control,df_test], axis=0,ignore_index=False)
 df.head()
 df.shape
 
-#####################################################
-# Görev 2:  A/B Testinin Hipotezinin Tanımlanması
-#####################################################
-
-# Adım 1: Hipotezi tanımlayınız.
-
+#  A/B Testinin Hipotezinin Tanımlanması
 
 # H0 : M1 = M2 (Kontrol grubu ve test grubu satın alma ortalamaları aasında fark yoktur.)
 # H1 : M1!= M2 (Kontrol grubu ve test grubu satın alma ortalamalarıarasında fark vardır.)
 
 
-# Adım 2: Kontrol ve test grubu için purchase(kazanç) ortalamalarını analiz ediniz
-
 df.groupby("group").agg({"Purchase": "mean"})
 
-#####################################################
-# GÖREV 3: Hipotez Testinin Gerçekleştirilmesi
-#####################################################
-
-######################################################
-# AB Testing (Bağımsız İki Örneklem T Testi)
-######################################################
 
 
-# Adım 1: Hipotez testi yapılmadan önce varsayım kontrollerini yapınız.Bunlar Normallik Varsayımı ve Varyans Homojenliğidir.
-
-# Kontrol ve test grubunun normallik varsayımına uyup uymadığını Purchase değişkeni üzerinden ayrı ayrı test ediniz
 
 # Normallik Varsayımı :
 # H0: Normal dağılım varsayımı sağlanmaktadır.
@@ -176,19 +154,6 @@ test_stat, pvalue = ttest_ind(df.loc[df["group"] == "control", "Purchase"],
 
 print('Test Stat = %.4f, p-value = %.4f' % (test_stat, pvalue))
 
-# Adım 3: Test sonucunda elde edilen p_value değerini göz önünde bulundurarak kontrol ve test grubu satın alma
-# ortalamaları arasında istatistiki olarak anlamlı bir fark olup olmadığını yorumlayınız.
 
 #(Kontrol grubu ve test grubu satın alma ortalamaları arasında ist. ol.anl.fark yoktur.)
-
-##############################################################
-# GÖREV 4 : Sonuçların Analizi
-##############################################################
-
-# Adım 1: Hangi testi kullandınız, sebeplerini belirtiniz.
-
-
-
-
-# Adım 2: Elde ettiğiniz test sonuçlarına göre müşteriye tavsiyede bulununuz.
 
